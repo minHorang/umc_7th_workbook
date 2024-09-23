@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navbar Example</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background-color: white;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .navbar .logo {
+        display: flex;
+        align-items: center;
+      }
+
+      .navbar .logo h1 {
+        font-size: 18px;
+        margin-left: 10px;
+        color: #000;
+      }
+
+      .navbar .menu {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .navbar .menu a {
+        text-decoration: none;
+        color: #000;
+        font-size: 16px;
+      }
+
+      .navbar .icon {
+        font-size: 20px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="logo">
+        <h1>SMUMC</h1>
+      </div>
+
+      <div class="menu">
+        <a href="#">PROJECTS</a>
+        <a href="#">MEMBERS</a>
+        <a href="#">NOTICE</a>
+        <div class="icon">☀️</div>
+      </div>
+    </div>
+  </body>
+</html>
