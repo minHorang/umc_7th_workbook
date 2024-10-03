@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UMC Study Plan</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>UMC Study Plan</h1>
+      <input
+        id="inputField"
+        type="text"
+        placeholder="스터디 계획을 작성해보세요!"
+        class="study-input"
+        onkeydown="KeyDownCheck()"
+      />
+      <div class="task-lists">
+        <div class="task" id="task-todo">
+          <h2>해야 할 일</h2>
+        </div>
+        <div class="task" id="task-done">
+          <h2>해낸 일</h2>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="./main.js"></script>
+  </body>
+</html>
