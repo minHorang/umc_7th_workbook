@@ -1,25 +1,17 @@
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Card = (props) => {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    console.log("클릭됌.");
-    navigate(`/movie/${props.movie.id}`);
-  };
-
   return (
     <Main>
-      <MovieItem key={props.key} onClick={handleClick}>
+      <MovieItem key={props.key}>
         <Poster
-          src={`https://image.tmdb.org/t/p/original/${props.movie.poster_path}`}
+          src={`https://image.tmdb.org/t/p/original/${props.movie.profile_path}`}
           alt={props.movie.title}
           className="poster"
         />
-        <Title>{props.movie.title}</Title>
+        <Title>{props.movie.name}</Title>
         <br />
-        <Date> {props.movie.release_date}</Date>
+        <Date> {props.movie.character}</Date>
       </MovieItem>
     </Main>
   );

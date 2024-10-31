@@ -1,29 +1,32 @@
 import Card from "../\bcomponents/card.jsx";
-
-import { useEffect, useState } from "react";
-import axios from "axios";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import useCustomFetch from "../hooks/useCustomFetch.js";
 
 const MoviesPage = () => {
-  const [movies, setMovies] = useState([]);
   const { category } = useParams();
   const encodedCategory = encodeURIComponent(category);
+  const {
+    data: movies,
+    isLoading,
+    isError,
+  } = useCustomFetch(`/movie/${encodedCategory}?language=ko-KR&page=1`);
 
-  useEffect(() => {
-    const getMovies = async () => {
-      const movies = await axios.get(
-        `https://api.themoviedb.org/3/movie/${encodedCategory}?language=ko-KR&page=1`,
-        {
-          headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNTNkYWIyMDkxMzI2Y2Y3NTkwNTAwYjQyODNkNjZkNyIsIm5iZiI6MTcyNjE0MTU3Ny42MDM2ODcsInN1YiI6IjY0MzVmY2Y2NjUxZmNmMDBkM2RhYzNmNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.cFPsPRHPidq2OnJ3U-3wHJYhnGajDFqUsM8XJ_a_0bw`,
-          },
-        }
-      );
-      setMovies(movies);
-    };
-    getMovies();
-  }, []);
+  if (isLoading) {
+    return (
+      <div>
+        <h1 style={{ color: "white" }}>로딩중 입니다 ...</h1>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div>
+        <h1 style={{ color: "white" }}>에러중</h1>
+      </div>
+    );
+  }
 
   return (
     <Main>

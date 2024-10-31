@@ -10,6 +10,7 @@ import MoviesCate from "./pages/movieCate";
 import Search from "./pages/search";
 import Signup from "./pages/signup";
 import Login from "./pages/login";
+import MovieDetailPage from "./pages/moiveDetail";
 
 const router = createBrowserRouter([
   {
@@ -24,14 +25,16 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        // 3. 부모의 path가 '/'이니, /를 붙이지 않아도 /movies랑 동일하게 동작한다.
         path: "movies",
         element: <MoviesCate />,
       },
       {
-        // 3. 부모의 path가 '/'이니, /를 붙이지 않아도 /movies랑 동일하게 동작한다.
         path: "movies/:category",
         element: <MoviesPage />,
+      },
+      {
+        path: "movie/:movieId",
+        element: <MovieDetailPage />,
       },
       {
         path: "/search",

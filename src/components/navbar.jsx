@@ -16,7 +16,7 @@ const Navbar = () => {
 
 // 네비게이션 바 전체 스타일
 const NavbarBack = styled.nav`
-  height: 50px;
+  height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
