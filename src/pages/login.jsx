@@ -83,15 +83,13 @@ const Login = () => {
             {...register("email")}
             placeholder="이메일을 입력해주세요!"
           />
-          <p style={{ color: "red" }}>{errors.email?.message}</p>
-
+          login<p style={{ color: "red" }}>{errors.email?.message}</p>
           <Input
             type="password"
             {...register("password")}
             placeholder="비밀번호를 입력해주세요!"
           />
           <p style={{ color: "red" }}>{errors.password?.message}</p>
-
           <Button type="submit" disabled={!isValid}>
             로그인
           </Button>
