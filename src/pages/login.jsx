@@ -83,7 +83,7 @@ const Login = () => {
             {...register("email")}
             placeholder="이메일을 입력해주세요!"
           />
-          login<p style={{ color: "red" }}>{errors.email?.message}</p>
+          <p style={{ color: "red" }}>{errors.email?.message}</p>
           <Input
             type="password"
             {...register("password")}

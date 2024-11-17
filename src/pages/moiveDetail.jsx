@@ -1,24 +1,50 @@
 import { useParams } from "react-router-dom";
-import useCustomFetch from "../hooks/useCustomFetch";
+import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
 import Card from "../\bcomponents/card";
+import { axiosInstance } from "../apis/axios-instance"; // axios 인스턴스를 가져온다고 가정
+
+// 영화 정보 및 영화 크레딧 정보를 가져오는 함수
+const fetchMovieInfo = async (movieId) => {
+  const response = await axiosInstance.get(`/movie/${movieId}?language=ko-K`);
+  return response.data;
+};
+
+const fetchMovieCredit = async (movieId) => {
+  const response = await axiosInstance.get(
+    `/movie/${movieId}/credits?language=ko-K`
+  );
+  return response.data;
+};
 
 const MovieDetailPage = () => {
   const { movieId } = useParams();
 
-  // 두 번째 API 요청: 영화 세부 정보
+  // 첫 번째 API 요청: 영화 정보
   const {
     data: movieInfo,
     isLoading: isLoadingInfo,
     isError: isErrorInfo,
-  } = useCustomFetch(`/movie/${movieId}?language=ko-K`);
+  } = useQuery(
+    ["movieInfo", movieId], // 영화 정보는 movieId로 구별
+    () => fetchMovieInfo(movieId),
+    {
+      enabled: !!movieId, // movieId가 있을 때만 실행
+    }
+  );
 
-  // 첫 번째 API 요청: 영화 크레딧 정보
+  // 두 번째 API 요청: 영화 크레딧 정보
   const {
     data: movieCredit,
     isLoading: isLoadingCredits,
     isError: isErrorCredits,
-  } = useCustomFetch(`/movie/${movieId}/credits?language=ko-K`);
+  } = useQuery(
+    ["movieCredit", movieId], // 영화 크레딧 정보는 movieId로 구별
+    () => fetchMovieCredit(movieId),
+    {
+      enabled: !!movieId, // movieId가 있을 때만 실행
+    }
+  );
 
   // 로딩 및 에러 처리
   if (isLoadingCredits || isLoadingInfo) {
@@ -37,28 +63,25 @@ const MovieDetailPage = () => {
     );
   }
 
-  console.log(movieInfo.data); // 크레딧 정보
-  console.log(movieCredit.data); // 영화 정보
-
   return (
     <div style={{ color: "white" }}>
       <InfoDiv
-        url={`https://image.tmdb.org/t/p/original/${movieInfo.data.poster_path}`}
+        url={`https://image.tmdb.org/t/p/original/${movieInfo.poster_path}`}
       >
-        <h1>{movieInfo.data.title}</h1>
-        <p>평균 {movieInfo.data.vote_average}</p>
-        <p>{movieInfo.data.release_date}</p>
-        <p>{movieInfo.data.runtime}분</p>
+        <h1>{movieInfo.title}</h1>
+        <p>평균 {movieInfo.vote_average}</p>
+        <p>{movieInfo.release_date}</p>
+        <p>{movieInfo.runtime}분</p>
         <br />
-        <p>{movieInfo.data.tagline}</p>
+        <p>{movieInfo.tagline}</p>
         <br />
-        <p>{movieInfo.data.overview}</p>
+        <p>{movieInfo.overview}</p>
       </InfoDiv>
 
       <h2>감독/출연</h2>
-      {movieCredit.data.cast && (
+      {movieCredit.cast && (
         <>
-          {movieCredit.data.cast.map((actor) => (
+          {movieCredit.cast.map((actor) => (
             <Card key={actor.id} movie={actor} />
           ))}
         </>
