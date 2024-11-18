@@ -4,6 +4,7 @@ import { FaSearch, FaFilm } from "react-icons/fa"; // 아이콘 추가
 
 // 사이드바 스타일
 const SidebarContainer = styled.div`
+  box-sizing: border-box;
   min-height: 100vh;
   width: 180px;
   height: 100%;
